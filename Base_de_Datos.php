@@ -9,7 +9,7 @@ function getStringConnection(){
     $arrSConn = array( 
         "servername"  => "localhost",
         "username"    => "root",
-        "password"    => "",
+        "password"    => "root",
         "dbname"      => "ubicacion",
     );
     return $arrSConn;
@@ -61,7 +61,7 @@ function insertUser($name, $username, $password, $email, $phone, $birthday){
     return 
     "INSERT INTO `usuario_comprador`
     (`id`, `nombre`, `apellido`, `email`, `password`, `usuario`, `telefono`, `fecha de nacimiento`) 
-    VALUES (".$next_id.",".$name.",".$surname.",".$phone.",".$password.",".$username.",".$phone.",".$birthday.")"
+    VALUES (".$next_id.",".$name.",".$surname.",".$phone.",".$password.",".$username.",".$phone.",".$birthday.")";
     #preguntar porque no te permite dejar la variable id como serial, porque tendrias que actualizarla todo el tiempo sino
 }
 
