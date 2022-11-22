@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 16-11-2022 a las 20:34:28
+-- Tiempo de generación: 22-11-2022 a las 04:51:45
 -- Versión del servidor: 5.7.34
 -- Versión de PHP: 7.4.21
 
@@ -18,219 +18,96 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `StockArg`
+-- Base de datos: `stockarg`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Estado`
+-- Estructura de tabla para la tabla `users`
 --
 
-CREATE TABLE `Estado` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `id_operacion` int(11) NOT NULL,
-  `valor_estado` varchar(50) NOT NULL
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `pass` varchar(255) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `phone` int(11) NOT NULL,
+  `adress` varchar(250) DEFAULT NULL,
+  `id_rol` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `pass`, `firstname`, `lastname`, `phone`, `adress`, `id_rol`) VALUES
+(1, 'demouser', 'demo@demo.com', '123456', 'demo', 'user', 1164474115, 'demo 123, C.A.B.A', 1),
+(6, 'testuser', 'ole@gmail.com', '123456', 'ma', 'ma', 1564474115, NULL, 2);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Mensaje`
+-- Estructura de tabla para la tabla `user_rol`
 --
 
-CREATE TABLE `Mensaje` (
+CREATE TABLE `user_rol` (
   `id` int(11) NOT NULL,
-  `id_operacion` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `mensaje` int(11) NOT NULL,
-  `fecha` int(11) NOT NULL
+  `description` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `Operacion`
+-- Volcado de datos para la tabla `user_rol`
 --
 
-CREATE TABLE `Operacion` (
-  `id` int(11) NOT NULL,
-  `id_producto` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_estado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Producto`
---
-
-CREATE TABLE `Producto` (
-  `id` int(11) NOT NULL,
-  `stock` int(10) NOT NULL,
-  `precio` int(11) NOT NULL,
-  `fecha` datetime(6) NOT NULL,
-  `id_usuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Rol`
---
-
-CREATE TABLE `Rol` (
-  `id` int(11) NOT NULL,
-  `nombre_rol` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Usuario`
---
-
-CREATE TABLE `Usuario` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `telefono` int(10) NOT NULL,
-  `password` varchar(20) NOT NULL,
-  `direccion` varchar(50) NOT NULL,
-  `nombre_usuario` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `user_rol` (`id`, `description`) VALUES
+(1, 'Vendedor'),
+(2, 'Comprador');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `Estado`
+-- Indices de la tabla `users`
 --
-ALTER TABLE `Estado`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_operacion` (`id_operacion`),
-  ADD UNIQUE KEY `valor_estado` (`valor_estado`);
+  ADD KEY `id_rol` (`id_rol`);
 
 --
--- Indices de la tabla `Mensaje`
+-- Indices de la tabla `user_rol`
 --
-ALTER TABLE `Mensaje`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_usuario` (`id_usuario`);
-
---
--- Indices de la tabla `Operacion`
---
-ALTER TABLE `Operacion`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_usuario` (`id_usuario`),
-  ADD KEY `operacion_vendedor` (`id_producto`),
-  ADD KEY `operacion_estado` (`id_estado`);
-
---
--- Indices de la tabla `Producto`
---
-ALTER TABLE `Producto`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_usuario` (`id_usuario`);
-
---
--- Indices de la tabla `Rol`
---
-ALTER TABLE `Rol`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `usuario_vendedor` (`nombre_rol`);
-
---
--- Indices de la tabla `Usuario`
---
-ALTER TABLE `Usuario`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+ALTER TABLE `user_rol`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `Estado`
+-- AUTO_INCREMENT de la tabla `users`
 --
-ALTER TABLE `Estado`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `Mensaje`
+-- AUTO_INCREMENT de la tabla `user_rol`
 --
-ALTER TABLE `Mensaje`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `Operacion`
---
-ALTER TABLE `Operacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `Producto`
---
-ALTER TABLE `Producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `Rol`
---
-ALTER TABLE `Rol`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `Usuario`
---
-ALTER TABLE `Usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `user_rol`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `Estado`
+-- Filtros para la tabla `users`
 --
-ALTER TABLE `Estado`
-  ADD CONSTRAINT `estado_operacion` FOREIGN KEY (`id`) REFERENCES `Operacion` (`id`);
-
---
--- Filtros para la tabla `Mensaje`
---
-ALTER TABLE `Mensaje`
-  ADD CONSTRAINT `mensaje_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `Usuario` (`id`);
-
---
--- Filtros para la tabla `Operacion`
---
-ALTER TABLE `Operacion`
-  ADD CONSTRAINT `mensajes` FOREIGN KEY (`id_usuario`) REFERENCES `Mensaje` (`id`);
-
---
--- Filtros para la tabla `Producto`
---
-ALTER TABLE `Producto`
-  ADD CONSTRAINT `producto_operacion` FOREIGN KEY (`id`) REFERENCES `Operacion` (`id_producto`);
-
---
--- Filtros para la tabla `Rol`
---
-ALTER TABLE `Rol`
-  ADD CONSTRAINT `rol_usuario` FOREIGN KEY (`id`) REFERENCES `Usuario` (`id`);
-
---
--- Filtros para la tabla `Usuario`
---
-ALTER TABLE `Usuario`
-  ADD CONSTRAINT `rol_vendedor` FOREIGN KEY (`email`) REFERENCES `Rol` (`nombre_rol`),
-  ADD CONSTRAINT `usuario_producto` FOREIGN KEY (`id`) REFERENCES `Producto` (`id`);
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `user_rol` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
